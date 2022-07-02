@@ -19,8 +19,22 @@ class mentee:
         self._ModeOFAdm = ModeOfAdm
         self._AdmissionCategory=AdmissionCategory
     
-    
-    
+class AdmissionDetails:
+
+    def __init__(self,ProgramName=None,AssociatedDepartment=None,ModeOfAdm=None,AdmissionCategory=None):
+        self._ProgramName=ProgramName
+        self._AssociatedDepartment = AssociatedDepartment
+        self._ModeOFAdm = ModeOfAdm
+        self._AdmissionCategory=AdmissionCategory
+
+class parents(mentee):
+
+    def __init__(self,DigitalId=None,mothername=None,mothermobilenumber=None,fathername=None,fathermobilenumber=None):
+        super().__init__(DigitalId)
+        self._mothername=mothername
+        self._fathername=fathername
+        self._m1 = mothermobilenumber
+        self._m2 = fathermobilenumber
 
 
 
