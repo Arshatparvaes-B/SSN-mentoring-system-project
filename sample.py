@@ -1,3 +1,4 @@
+"""Author:Badri"""
 """This file is a sample of how we are going to store data of mentees in
 binary search trees. BST is a non-linear data structure. It is useful in retrieving data faster,
 since its time complexity is O(logn). This file also contains classes for Binary Search Trees.
