@@ -143,7 +143,7 @@ def login1(myframe):            # entering details of the user
                 e.grid(row=i,column=j)
                 e.insert(0,l[i][j])
     else:
-        messagebox.showinfo("","incorrect")
+        messagebox.showinfo("","Either the username or password entered is incorrect")
 
 
 
@@ -199,7 +199,35 @@ mybutton2=Button(myframe,text="Mentor",bg="#A2ACBE",font=('Helvetica',14),comman
 mybutton2.grid(row=4,column=1,padx=10,pady=10)
 mybutton3=Button(myframe,text="Mentee",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open(myframe))    
 mybutton3.grid(row=4,column=2,padx=10,pady=10)
+#ACADEMIC INFO SELECTION POP-UP
+root = Tk()
+root.geometry("400x400")
+def show():
+	label.config( text = clicked.get() )
 
+# Dropdown menu options
+options = [
+	"CAT-1",
+	"CAT-2",
+	"SAT",
+	"SEMESTER"]
+
+# datatype of menu text
+clicked = StringVar()
+
+# initial menu text
+clicked.set( "SELCT EXAM" )
+
+# Create Dropdown menu
+drop = OptionMenu( root , clicked , *options )
+drop.pack()
+
+# Create button, it will change label text
+button = Button( root , text = "click Me" , command = show ).pack()
+
+# Create Label
+label = Label( root , text = " " )
+label.pack()
 m.mainloop()
 
 

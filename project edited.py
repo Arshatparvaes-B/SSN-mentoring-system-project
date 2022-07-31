@@ -15,6 +15,35 @@ m.iconbitmap()
 myframe=Frame(m,bg="#817D8B")   #importing the frame colour
 myframe.pack(pady=20)
 z=1
+#ACADEMIC INFO SELECTION POP-UP
+root = Tk()
+root.geometry("400x400")
+def show():
+	label.config( text = clicked.get() )
+
+# Dropdown menu options
+options = [
+	"CAT-1",
+	"CAT-2",
+	"SAT",
+	"SEMESTER"]
+
+# datatype of menu text
+clicked = StringVar()
+
+# initial menu text
+clicked.set("SELCT EXAM")
+
+# Create Dropdown menu
+drop = OptionMenu( root , clicked , *options )
+drop.pack()
+
+# Create button, it will change label text
+button = Button( root , text = "SELECT" , command = show ).pack()
+
+# # Create Label
+# label = Label( root , text = " " )
+# label.pack()
 
 def login():            # entering details of the user
     user=entry1.get()
@@ -37,7 +66,7 @@ def login():            # entering details of the user
             r3=Tk()
             a1=Button(r3,text='personal info',font=('Helvetica',16),fg='blue').place(relx=0.38,rely=0.5,anchor=CENTER)
             a2=Button(r3,text='mentorship',font=('Helvetica',16),fg='blue').place(relx=0.5,rely=0.5,anchor=CENTER)
-            a3=Button(r3,text='academic info',font=('Helvetica',16),fg='blue').place(relx=0.62,rely=0.5,anchor=CENTER)
+            a3=Button(r3,text='academic info',command=show(),font=('Helvetica',16),fg='blue').place(relx=0.62,rely=0.5,anchor=CENTER)
         
     else:
         messagebox.showinfo("","incorrect")
