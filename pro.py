@@ -1,7 +1,9 @@
+from calendar import calendar, month
 from tkinter import *       
 from tkinter import messagebox
 import math
 import csv
+from tkcalendar import Calendar
 
 
 class BST:
@@ -42,7 +44,7 @@ class BST:
 			self.rchild.inorder()
 """Piece of code which reads the records in the csv file containing mentee details""" 
 
-f=open(r"C:\Users\ashwi\OneDrive\Desktop\ITdeatilswithoutpass.txt","r")
+f=open(r"Z:\project.txt","r")
 n=next(csv.reader(f))
 l=[]
 for i in csv.reader(f):
@@ -75,9 +77,9 @@ m.title("SSN Mentoring system")
 m.iconbitmap()
 m.geometry('1920x1080')
 #
-img=PhotoImage(file=r'C:\Users\ashwi\Downloads\ssnpro1.png')  #importing image of SSN
-lab=Label(m,image=img)
-lab.place(x=0,y=0,relheight=1,relwidth=1)
+#img=PhotoImage(file=r'C:\Users\ashwi\Downloads\ssnpro1.png')  #importing image of SSN
+#lab=Label(m,image=img)
+#lab.place(x=0,y=0,relheight=1,relwidth=1)
 
 myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
 myframe.pack(padx=250,pady=250)
@@ -85,6 +87,28 @@ myframe.pack(padx=250,pady=250)
 def personalinfo(myframe):
     return
 def academicdetails(myframe):
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="white")   #importing the frame colour
+    myframe.place(relx=0.5,rely=0.5)
+
+    options = [
+	"CAT-1",
+	"CAT-2",
+	"SAT",
+	"SEMESTER"]
+
+# datatype of menu text
+    clicked = StringVar()
+
+    # initial menu text
+    clicked.set("SELCT EXAM")
+
+    # Create Dropdown menu
+    drop = OptionMenu( myframe, clicked , *options )
+    drop.pack()
+
+    # Create button, it will change label text
+    button = Button( myframe, text = "SELECT" ).pack()
     return
 def mentorship(myframe):
     return
@@ -116,12 +140,35 @@ def login1(myframe):            # entering details of the user
         myframe.destroy()
         myframe=LabelFrame(m,bg="white")   #importing the frame colour
         myframe.grid(row=0,column=0)
+        cal=Calendar(myframe, selectmode = 'day',
+               year = 2020, month = 5,
+               day = 22)
+        cal.pack()
         column=len(l[1])
         for i in range(0,21):
             for j in range(column):
                 e=Entry(m,width=20,fg='blue')
                 e.grid(row=i,column=j)
                 e.insert(0,l[i][j])
+        options = [
+        "physics",
+        "BEEE",
+        "Maths",
+        "Data Structures"]
+
+    # datatype of menu text
+        clicked = StringVar()
+
+        # initial menu text
+        clicked.set("SELCT EXAM")
+
+        # Create Dropdown menu
+        drop = OptionMenu( myframe, clicked , *options )
+        drop.pack()
+
+        # Create button, it will change label text
+        button = Button( myframe, text = "SELECT" ).pack()
+        
     elif (user=='rajalakshmi@ssn.edu.in' and passw=='raji'):
         myframe.destroy()
         myframe=LabelFrame(m,bg="white")   #importing the frame colour
@@ -132,30 +179,122 @@ def login1(myframe):            # entering details of the user
                 e=Entry(m,width=20,fg='blue')
                 e.grid(row=i,column=j)
                 e.insert(0,l[i][j])
+        options = [
+        "physics",
+        "BEEE",
+        "Maths",
+        "Data Structures"]
+
+    # datatype of menu text
+        clicked = StringVar()
+
+        # initial menu text
+        clicked.set("SELCT EXAM")
+
+        # Create Dropdown menu
+        drop = OptionMenu( myframe, clicked , *options )
+        drop.pack()
+
+        # Create button, it will change label text
+        button = Button( myframe, text = "SELECT" ).pack()
+        return
     elif (user=='divyajohn@ssn.edu.in' and passw=='dj'):
         myframe.destroy()
         myframe=LabelFrame(m,bg="white")   #importing the frame colour
-        myframe.grid(row=0,column=0)
+        myframe.grid(row=0,column=0,padx=100,pady=100)
         column=len(l[1])
         for i in range(42,63):
             for j in range(column):
                 e=Entry(m,width=20,fg='blue')
                 e.grid(row=i,column=j)
                 e.insert(0,l[i][j])
+        options = [
+        "physics",
+        "BEEE",
+        "Maths",
+        "Data Structures"]
+
+    # datatype of menu text
+        clicked = StringVar()
+
+        # initial menu text
+        clicked.set("SELCT EXAM")
+
+        # Create Dropdown menu
+        drop = OptionMenu( myframe, clicked , *options )
+        drop.pack()
+
+        # Create button, it will change label text
+        button = Button( myframe, text = "SELECT" ).pack()
+        return
     else:
-        messagebox.showinfo("","Either the username or password entered is incorrect")
-
-
+        messagebox.showinfo("","incorrect")
+def raja(myframe):
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="white")   #importing the frame colour
+    myframe.grid(row=0,column=0)
+    column=len(l[1])
+    for i in range(0,21):
+        for j in range(column):
+            e=Entry(m,width=20,fg='blue')
+            e.grid(row=i,column=j)
+            e.insert(0,l[i][j])
+def chandra(myframe):
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="white")   #importing the frame colour
+    myframe.grid(row=0,column=0)
+    column=len(l[1])
+    for i in range(21,42):
+        for j in range(column):
+            e=Entry(m,width=20,fg='blue')
+            e.grid(row=i,column=j)
+            e.insert(0,l[i][j])
+def dj(myframe):
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="white")   #importing the frame colour
+    myframe.grid(row=0,column=0)
+    
+    column=len(l[1])
+    for i in range(42,63):
+        for j in range(column):
+            e=Entry(m,width=20,fg='blue')
+            e.grid(row=i,column=j)
+            e.insert(0,l[i][j])
+    
+def login2(myframe):
+    
+    user2=entry1.get()
+    passw2=entry2.get()
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.pack(padx=250,pady=250)
+    
+    if user2=='' and passw2=='':
+        messagebox.showinfo("","blank invalid")
+    elif user2=='manager' and passw2=='123':
+        myframe.destroy()
+        myframe=LabelFrame(m,bg="white")   #importing the frame colour
+        myframe.grid(row=0,column=0)
+        
+        b1=Button(myframe,text='ACADEMIC REPORT',width=0)
+        
+        b1.grid(row=0,column=1,padx=10,pady=10)
+        b2=Button(myframe,text='Chandrasekar',width=0,command=lambda:chandra(myframe))
+        b2.grid(row=0,column=2,padx=10,pady=10)
+        b=Button(myframe,text='Rajalakshmi',width=0,command=lambda:raja(myframe))
+        b.grid(row=0,column=3,padx=10,pady=10)
+        b3=Button(myframe,text='Divya John',width=0,command=lambda:dj(myframe))
+        b3.grid(row=0,column=4,padx=10,pady=10)
 
 def back(myframe):
     myframe.destroy()
     myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
     myframe.pack(padx=250,pady=250)
-    mybutton1=Button(myframe,text="Manager",bg="#A2ACBE",borderwidth=0,font=('Helvetica',14),command=lambda:open(myframe))        # creating buttons for manager, mentor , mentee
+    mybutton1=Button(myframe,text="Manager",bg="#A2ACBE",font=('Helvetica',14),command=lambda:open2(myframe))        # creating buttons for manager, mentor , mentee
     mybutton1.grid(row=1,column=0,padx=10,pady=10)
-    mybutton2=Button(myframe,text="Mentor",bg="#A2ACBE",borderwidth=0,font=('Helvetica',14),command=lambda :open(myframe))
+    mybutton2=Button(myframe,text="Mentor",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open1(myframe))
     mybutton2.grid(row=1,column=1,padx=10,pady=10)
-    mybutton3=Button(myframe,text="Mentee",bg="#A2ACBE",borderwidth=0,font=('Helvetica',14),command=lambda :open(myframe))    
+    mybutton3=Button(myframe,text="Mentee",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open(myframe))    
     mybutton3.grid(row=1,column=2,padx=10,pady=10)
 def open(myframe):
     
@@ -192,42 +331,27 @@ def open1(myframe):
     entry2.grid(row=2,column=2)
     b2=Button(myframe,text="LOGIN",fg='white',bg='#A2ACBE',padx=1,pady=1,font=('Helvetica',12),command=lambda :login1(myframe)).place(relx=0.7,rely=1)
         
+def open2(myframe):
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",padx=25,pady=40,bd=0)   #importing the frame colour
+    myframe.pack(padx=250,pady=250)
+    global entry1
+    global entry2
+    b3=Button(myframe,text="BACK",fg='white',bg='#A2ACBE',font=('Helvetica',12),command=lambda :back(myframe)).place(relx=0.3,rely=1)
+    la=Label(myframe,text="USERNAME :",font=('Helvetica',14),fg='white',bg='#A2ACBE').grid(row=1,column=0)   #function for creating the username and password button
+    la2=Label(myframe,text='PASSWORD :',font=('Helvetica',14),fg='white',bg='#A2ACBE').grid(row=2,column=0)
+    entry1=Entry(myframe,bd=5)
+    entry1.grid(row=1,column=2)
+    entry2=Entry(myframe,bd=5,show='*')
+    entry2.grid(row=2,column=2)
+    b2=Button(myframe,text="LOGIN",fg='white',bg='#A2ACBE',padx=1,pady=1,font=('Helvetica',12),command=lambda :login2(myframe)).place(relx=0.7,rely=1)
 
-mybutton1=Button(myframe,text="Manager",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open(myframe))        # creating buttons for manager, mentor , mentee
+
+mybutton1=Button(myframe,text="Manager",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open2(myframe))        # creating buttons for manager, mentor , mentee
 mybutton1.grid(row=4,column=0,padx=10,pady=10)
 mybutton2=Button(myframe,text="Mentor",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open1(myframe))
 mybutton2.grid(row=4,column=1,padx=10,pady=10)
 mybutton3=Button(myframe,text="Mentee",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open(myframe))    
 mybutton3.grid(row=4,column=2,padx=10,pady=10)
-#ACADEMIC INFO SELECTION POP-UP
-root = Tk()
-root.geometry("400x400")
-def show():
-	label.config( text = clicked.get() )
 
-# Dropdown menu options
-options = [
-	"CAT-1",
-	"CAT-2",
-	"SAT",
-	"SEMESTER"]
-
-# datatype of menu text
-clicked = StringVar()
-
-# initial menu text
-clicked.set( "SELCT EXAM" )
-
-# Create Dropdown menu
-drop = OptionMenu( root , clicked , *options )
-drop.pack()
-
-# Create button, it will change label text
-button = Button( root , text = "click Me" , command = show ).pack()
-
-# Create Label
-label = Label( root , text = " " )
-label.pack()
 m.mainloop()
-
-
