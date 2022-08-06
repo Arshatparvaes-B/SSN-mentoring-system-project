@@ -3,7 +3,7 @@
 import csv
 import smtplib
 #email address from the file
-receivermail=input("enter a email address to send email:")
+receivermail=input("enter a email address to send email:")#change this to tkinter
 
 def emailandpassword():
     f=open(r"C:\Users\enter\OneDrive\arshat ssn files\PROJECT COMPONENT\sem 2 project\GIT FILES\SSN-mentoring-system-project\credentials1.txt","r")
