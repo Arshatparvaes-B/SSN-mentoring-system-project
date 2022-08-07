@@ -21,8 +21,8 @@ def emailandpassword():
 
 
 
-EMAIL_ADDRESS = "arshat2110684@ssn.edu.in"
-EMAIL_PASS="ArshatEnter@25"
+EMAIL_ADDRESS = "enteraemail"
+EMAIL_PASS="enterapassword"
 with smtplib.SMTP('smtp.gmail.com',587) as smtp:
     smtp.ehlo()#identifies ourselves with thee mail server
     smtp.starttls()#to encrypt traffic
