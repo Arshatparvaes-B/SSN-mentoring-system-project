@@ -47,16 +47,61 @@ class BST:
 		self._elements.append(self.key)
 		if self.rchild:
 			self.rchild.inorder()
+
+def createBST(l,a=0):
+    """This function creates BST """
+    obj=BST(l[31][a:],32)
+    n=16
+    p=n
+    i=1
+    q=n
+    c=0
+    while c<5:
+        
+        for j in range(2**i):
+            obj.insert(l[int(p-1)][a:],p)
+            p= p + 2**((math.log(q,2))+1)
+        i+=1
+        o = n/(2**(i-1))
+        p=o
+        q=o
+        c+=1
+    return obj
+one_mentee_details=None	
+def retrievex(tree,username,b):
+
+	"""un-username,
+	a-the coulumn of username"""
 	
-"""Piece of code which reads the records in the csv file containing mentee details""" 
-f=open(r"C:\Users\ashwi\OneDrive\Desktop\ITdetails.txt","r")
+	global one_mentee_details
+	if tree.key[b]==username:
+		
+		one_mentee_details=tree.key
+		return tree.key
+	elif username<tree.key[b]:
+		if tree.lchild:
+			retrievex(tree.lchild,username,b)
+		else:
+			return False
+	elif username>tree.key[b]:
+		if tree.rchild:
+			retrievex(tree.rchild,username,b)
+		else:
+		    return False
+
+
+	
+#Piece of code which reads the records in the csv file containing mentee details
+f=open(r"C:\Users\ashwi\OneDrive\Documents\Ashwin M\New folder\SSN-mentoring-system-project\IT-A details.txt","r")
 n=next(csv.reader(f))
 l=[]
 for i in csv.reader(f):
 	l.append(i)
 f.close()
 
-"""Insertion of records into the binary search tree start here."""
+mentee_details_tree=createBST(l)
+
+"""Insertion of records into the binary search tree start here.
 obj=BST(l[31],32)
 n=16
 p=n
@@ -72,8 +117,11 @@ while c<5:
     p=o
     q=o
     c+=1
-"""Calling .inorder() method to print the records."""
+Calling .inorder() method to print the records.
 #obj.inorder()
+
+"""
+
 
 
 
