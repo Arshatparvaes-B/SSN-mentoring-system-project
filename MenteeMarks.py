@@ -8,7 +8,7 @@ exam=input("Enter CAT-1, CAT-2 or SAT:")
 
 if exam=="CAT-1":
 
-    f=open(r"C:\Users\3122215002018\Desktop\project\CAT-1results.txt","r")
+    f=open(r"C:\Users\ashwi\OneDrive\Documents\Ashwin M\New folder\SSN-mentoring-system-project\CAT-1results.txt","r")
     c=csv.reader(f)
     no=next(c)
     l=[]
@@ -41,7 +41,7 @@ elif exam=="SAT":
     marks_tree=samplecode.createBST(l)
 
 
-samplecode.retrieve(marks_tree,username,1)
+samplecode.retrievex(marks_tree,username,1)
 
 marks_details=samplecode.one_mentee_details[3:]
 marks_details=[("Maths",marks_details[0]),("BEEE",marks_details[1]),("Physics",marks_details[2]),("PDS",marks_details[3]),
@@ -57,6 +57,9 @@ for i in range(total_rows):
     
 
 root.mainloop()
+
+
+
 
 
 
