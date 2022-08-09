@@ -1,4 +1,3 @@
-
 from tkinter import *       
 from tkinter import messagebox
 import math
@@ -6,7 +5,8 @@ from samplecode import *
 import csv
 #from tkcalendar import Calendar
 
-
+exam=None
+one_mentee_details=None
 class BST:
 
 	"""This constructor takes 3 arguments: self, key and number. Key-record, number - serial number"""
@@ -45,7 +45,7 @@ class BST:
 			self.rchild.inorder()
 """Piece of code which reads the records in the csv file containing mentee details""" 
 
-f=open(r"C:\Users\ashwi\OneDrive\Documents\Ashwin M\New folder\SSN-mentoring-system-project\IT-A details.txt","r")
+f=open(r"Z:\ssn mentoring system project\SSN-mentoring-system-project\IT-A details.txt","r")
 n=next(csv.reader(f))
 l=[]
 for i in csv.reader(f):
@@ -70,6 +70,26 @@ while c<5:
     p=o
     q=o
     c+=1
+def retrievex(tree,username,b=0):
+
+	"""un-username,
+	a-the coulumn of username"""
+	
+	global one_mentee_details
+	if tree.key[b]==username:
+		
+		one_mentee_details=tree.key
+		return tree.key
+	elif username<tree.key[b]:
+		if tree.lchild:
+			retrievex(tree.lchild,username,b)
+		else:
+			return False
+	elif username>tree.key[b]:
+		if tree.rchild:
+			retrievex(tree.rchild,username,b)
+		else:
+		    return False
 
 """Calling .inorder() method to print the records."""
 m=Tk()
@@ -77,25 +97,25 @@ m.title("SSN Mentoring system")
 m.iconbitmap()
 m.geometry('1920x1080')
 #
-img=PhotoImage(file=r'C:\Users\ashwi\Downloads\ssnpro1.png')  #importing image of SSN
+img=PhotoImage(file=r'Z:\ssn mentoring system project\SSN-mentoring-system-project\ssnpro1.png')  #importing image of SSN
 lab=Label(m,image=img)
 lab.place(x=0,y=0,relheight=1,relwidth=1)
 
 myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
 myframe.pack(padx=250,pady=250)
 
-f=open(r"C:\Users\ashwi\OneDrive\Documents\Ashwin M\New folder\SSN-mentoring-system-project\credentials1.txt","r")
+f=open(r"Z:\ssn mentoring system project\SSN-mentoring-system-project\credentials1.txt","r")
 
 lis=[]
 x=[]
 y=[]
 no=next(csv.reader(f))
 for i in csv.reader(f):
-    x.append(i[0])
+    x.append(i[1])
 f.seek(1)
 no=next(csv.reader(f))
 for j in csv.reader(f):
-    y.append(j[1])
+    y.append(j[2])
 lis.append(x)
 lis.append(y)
 #f=open(r"C:\Users\ashwi\OneDrive\Documents\Ashwin M\New folder\SSN-mentoring-system-project\credentials1.txt","r")
@@ -197,18 +217,70 @@ def personalinfo(myframe):
             
         
     b=check(credtree,user4,passw4)
+def show(myframe):
+    global exam
+    myframe.destroy()
     
+    myframe=LabelFrame(m,text=clicked.get(),bg="black")   #importing the frame colour
+    myframe.place(relx=0.5,rely=0.5)
+    
+    myframe.config( text = clicked.get() )
+    exam=str(clicked.get())
+    print(exam)
+    if exam=="CAT-1":
+        f=open(r"Z:\ssn mentoring system project\SSN-mentoring-system-project\CAT-1results.txt","r")
+        c=csv.reader(f)
+        no=next(c)
+        l=[]
+        for i in c:
+            l.append(i)
+        f.close()
+        
+        marks_tree=createBST(l)
+    elif exam=="CAT-2":
+        f=open(r"Z:\ssn mentoring system project\SSN-mentoring-system-project\CAT-2 results.txt","r")
+        c=csv.reader(f)
+        no=next(c)
+        l=[]
+        for i in c:
+            l.append(i)
+        f.close()
+        marks_tree=createBST(l)
+    elif exam=="SAT":
+        f=open()  #inside the parenthesis put the filename containing SAT Marks
+        c=csv.reader(f)
+        no=next(c)
+        l=[]
+        for i in c:
+            l.append(i)
+        f.close()
+        marks_tree=createBST(l)
+    
+    retrievex(marks_tree,user4,1)
+    marks_details=one_mentee_details[3:]
+    marks_details=[("Maths",marks_details[0]),("BEEE",marks_details[1]),("Physics",marks_details[2]),("PDS",marks_details[3]),
+    ("HSE",marks_details[4]),("EVS",marks_details[5])]
+    total_rows=len(marks_details)
+    
+    for i in range(total_rows):
+        for j in range(2):
+            e=Entry(m,width=20,fg='blue')
+            e.grid(row=i,column=j)
+            e.insert(0,marks_details[i][j])  
+    
+
     
 def academicdetails(myframe):
+    global clicked
     myframe.destroy()
     myframe=LabelFrame(m,bg="white")   #importing the frame colour
     myframe.place(relx=0.5,rely=0.5)
 
-    options = [
+
+    options = [                              
 	"CAT-1",
 	"CAT-2",
-	"SAT",
-	"SEMESTER"]
+	"SAT"]
 
 # datatype of menu text
     clicked = StringVar()
@@ -221,7 +293,7 @@ def academicdetails(myframe):
     drop.pack()
 
     # Create button, it will change label text
-    button = Button( myframe, text = "SELECT" ).pack()
+    button = Button( myframe, text = "click here",command=lambda :show(myframe)).pack()
     return
 def mentorship(myframe):
     return
@@ -247,17 +319,17 @@ def login(myframe):
         mb2.grid(row=1,column=3,padx=10,pady=10)
     else:
         messagebox.showinfo("","incorrect")
-def next(myframe):          #for creating a page to add update delete
-    myframe.destroy()
-    myframe=LabelFrame(m,bg="white")   #importing the frame colour
-    myframe.pack(padx=250,pady=250)
-    mb=Button(myframe,text='PERSONAL INFO',font=('Helvetica',16),borderwidth=0,bg="white",fg='blue',command=lambda :personalinfo(myframe))
-    mb.grid(row=1,column=1,padx=10,pady=10)
-    mb1=Button(myframe,text='ACADEMIC DETAILS',font=('Helvetica',16),borderwidth=0,bg="white",fg='blue',command=lambda :academicdetails(myframe))
-    mb1.grid(row=1,column=2,padx=10,pady=10)
-    mb2=Button(myframe,text='MENTORSHIP',font=('Helvetica',16),borderwidth=0,bg="white",fg='blue',command=lambda :mentorship(myframe))
-    mb2.grid(row=1,column=3,padx=10,pady=10)
-    return
+#def next(myframe):          #for creating a page to add update delete
+    # myframe.destroy()
+    # myframe=LabelFrame(m,bg="white")   #importing the frame colour
+    # myframe.pack(padx=250,pady=250)
+    # mb=Button(myframe,text='PERSONAL INFO',font=('Helvetica',16),borderwidth=0,bg="white",fg='blue',command=lambda :personalinfo(myframe))
+    # mb.grid(row=1,column=1,padx=10,pady=10)
+    # mb1=Button(myframe,text='ACADEMIC DETAILS',font=('Helvetica',16),borderwidth=0,bg="white",fg='blue',command=lambda :academicdetails(myframe))
+    # mb1.grid(row=1,column=2,padx=10,pady=10)
+    # mb2=Button(myframe,text='MENTORSHIP',font=('Helvetica',16),borderwidth=0,bg="white",fg='blue',command=lambda :mentorship(myframe))
+    # mb2.grid(row=1,column=3,padx=10,pady=10)
+    # return
 
 def login1(myframe):            # entering details of the user
     user=entry1.get()
@@ -370,9 +442,9 @@ def back(myframe):
     mybutton1.grid(row=1,column=0,padx=10,pady=10)
     mybutton2=Button(myframe,text="Mentor",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open1(myframe))
     mybutton2.grid(row=1,column=1,padx=10,pady=10)
-    mybutton3=Button(myframe,text="Mentee",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open(myframe))    
+    mybutton3=Button(myframe,text="Mentee",bg="#A2ACBE",font=('Helvetica',14),command=lambda :openx(myframe))    
     mybutton3.grid(row=1,column=2,padx=10,pady=10)
-def open(myframe):
+def openx(myframe):
     
     myframe.destroy()
     myframe=LabelFrame(m,bg="#A2ACBE",padx=25,pady=40,bd=0)   #importing the frame colour
@@ -427,7 +499,7 @@ mybutton1=Button(myframe,text="Manager",bg="#A2ACBE",font=('Helvetica',14),comma
 mybutton1.grid(row=4,column=0,padx=10,pady=10)
 mybutton2=Button(myframe,text="Mentor",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open1(myframe))
 mybutton2.grid(row=4,column=1,padx=10,pady=10)
-mybutton3=Button(myframe,text="Mentee",bg="#A2ACBE",font=('Helvetica',14),command=lambda :open(myframe))    
+mybutton3=Button(myframe,text="Mentee",bg="#A2ACBE",font=('Helvetica',14),command=lambda :openx(myframe))    
 mybutton3.grid(row=4,column=2,padx=10,pady=10)
 
 m.mainloop()
