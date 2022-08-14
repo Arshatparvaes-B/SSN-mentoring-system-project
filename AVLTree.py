@@ -6,9 +6,9 @@ class Node(object):
         self.right=None
         self.height=1
 class AVL1(object):
-    # def __init__(self,root,key):  #here key is supposeedly the S.no
-    #     self.root=None            #if unwanted comment it becuz this ain't given in the book
-    #     self.key=None
+    __slots__="record"
+    def __init__(self):  #here key is supposeedly the S.no
+         self.record=None            #if unwanted comment it becuz this ain't given in the book
     def insert(self,root,key,data):
         #how does insertion work in a AVL tree?
         #it works like the insertion binary but also follows some more height criteria
@@ -46,7 +46,17 @@ class AVL1(object):
             self.delete(root.left,Sno,number)
         else:
             return "Record not found"
-    
+
+    def retrieve(self,root,Sno,r=""):
+        if root.val==Sno:
+            self.record=root.data
+        elif root.val<Sno:
+            self.retrieve(root.right,Sno,r)
+        elif root.val>Sno:
+            self.retrieve(root.left,Sno,r)
+        else:
+            return "Record not found"
+
     def update(self,root,Sno,number,data):
         if root.val==Sno:
             root.data[number]=data
