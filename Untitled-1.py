@@ -10,7 +10,8 @@ import avl
 import linkedlist
 import main
 #from tkcalendar import Calendar
-
+snoe,dide,ree,ssne,gene,dte,se,sne=None,None,None,None,None,None,None,None
+ae,be,ce=None,None,None
 marks_tree=None
 class BST:
 
@@ -332,28 +333,37 @@ def login(myframe):
     #mb2.grid(row=1,column=3,padx=10,pady=10)
 def add(myframe,username):
     global snoe,dide,ree,ssne,gene,dte,se,sne
+
     myframe.destroy()
     myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
     myframe.pack(padx=250,pady=250)
     sno=Label(myframe,text='Serial No.').grid(row=1,column=1)
-    snoe=Entry(myframe,bd=5).grid(row=1,column=2)
+    snoe=Entry(myframe,bd=5)
+    snoe.grid(row=1,column=2)
     did=Label(myframe,text='Digital ID').grid(row=2,column=1)
-    dide=Entry(myframe,bd=5).grid(row=2,column=2)
+    dide=Entry(myframe,bd=5)
+    dide.grid(row=2,column=2)
     re=Label(myframe,text='Register No.').grid(row=3,column=1)
-    ree=Entry(myframe,bd=5).grid(row=3,column=2)
+    ree=Entry(myframe,bd=5)
+    ree.grid(row=3,column=2)
     sn=Label(myframe,text='Student Name').grid(row=4,column=1)
-    sne=Entry(myframe,bd=5).grid(row=4,column=2)
+    sne=Entry(myframe,bd=5)
+    sne.grid(row=4,column=2)
     s=Label(myframe,text='Section').grid(row=5,column=1)
-    se=Entry(myframe,bd=5).grid(row=5,column=2)
+    se=Entry(myframe,bd=5)
+    se.grid(row=5,column=2)
     dt=Label(myframe,text='Department').grid(row=6,column=1)
-    dte=Entry(myframe,bd=5).grid(row=6,column=2)
+    dte=Entry(myframe,bd=5)
+    dte.grid(row=6,column=2)
     ssn=Label(myframe,text='SSN Mail ID').grid(row=7,column=1)
-    ssne=Entry(myframe,bd=5).grid(row=7,column=2)
+    ssne=Entry(myframe,bd=5)
+    ssne.grid(row=7,column=2)
     gen=Label(myframe,text='Gender').grid(row=8,column=1)
-    gene=Entry(myframe,bd=5).grid(row=8,column=2)
+    gene=Entry(myframe,bd=5)
+    gene.grid(row=8,column=2)
     sdj=Button(myframe,text='INSERT',command=lambda: add1(myframe)).grid(row=10,column=1)
-   
 def add1(myframe):
+
     a=snoe.get()
     b=dide.get()
     c=sne.get()
@@ -363,12 +373,99 @@ def add1(myframe):
     g=ssne.get()
     h=gene.get()
     details=[a,b,e,c,d,f,g,h]
-    root=main.root3
-    mentees=main.T3
-    root=mentees.insert(root,int(details[0]),details)
-    print(mentees.inorder(root,[]))
+    f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","r")
+    l=[]
+    # c=0
+    c=0
+    for i in csv.reader(f):
+        if c!=0:
+            
+            if int(i[0])<int(details[0]):
+                l.append(i)
+            elif int(i[0])==int(details[0]):
+                l.append(details)
+                i[0]=str(int(i[0])+1)
+                l.append(i)
+            else:
+            # c+=1
+                i[0]=str(int(i[0])+1)
+                l.append(i)
+        c+=1
+    f.close()
+    f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","w",newline="")
+    w=csv.writer(f)
+    w.writerow(['S.No','Digital ID','Register Number','Student Name','Section','Department','SSN Mail / SSN Digital Id','Gender'])
+    w.writerows(l)
+    f.close()
+    # root=None
+    # Tnew=avl.AVL1()
+    # for i in l:
+    #     root=Tnew.insert(root,int(i[0]),i)
+    # l1=Tnew.inorder(root)
+    # print(l1)
+    # root=main.root3
+    # mentees=main.T3
+    # print(details[0],type(details[0]))
+    # root=mentees.insert(root,int(details[0]),details)
+    
 def update(myframe):
-    return
+    global ae,be,ce
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.pack(padx=250,pady=250)
+    a=Label(myframe,text='Enter SNO. of the record to be updated').grid(row=2,column=2)
+    b=Label(myframe,text='Enter type of data to be updated').grid(row=3,column=2)
+    c=Label(myframe,text='Enter the new data to be replaced').grid(row=4,column=2)
+    ae=Entry(myframe,bd=5)
+    ae.grid(row=2,column=3)
+    be=Entry(myframe,bd=5)
+    be.grid(row=3,column=3)
+    ce=Entry(myframe,bd=5)
+    ce.grid(row=4,column=3)
+    d=Button(myframe,text='UPDATE THE DETAILS',command=lambda :update1(myframe)).grid(row=5,column=2)
+def update1(myframe):
+    a=ae.get()
+    a=int(a)
+    b=be.get()
+    c=ce.get()
+    l=[]
+    if b.lower()=="digital id":
+        number=1
+        root=main.root3
+        tree=main.T3
+        tree.update(root,a,number,c)
+        l=tree.inorder(root)
+    if b.lower()=="register number":
+        number=2
+        root=main.root3
+        tree=main.T3
+        tree.update(root,a,number,c)
+        l=tree.inorder(root)
+    if b.lower()=="student name":
+        number=3
+        root=main.root3
+        tree=main.T3
+        tree.update(root,a,number,c)
+        l=tree.inorder(root)
+    if b.lower()=="section":
+        number=4
+        root=main.root3
+        tree=main.T3
+        tree.update(root,a,number,c)
+        l=tree.inorder(root)
+    if b.lower()=="department":
+        number=5
+        root=main.root3
+        tree=main.T3
+        tree.update(root,a,number,c)
+        l=tree.inorder(root)
+    
+    f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","w",newline="")
+    lh=["S.No","Digital ID","Register Number","Student Name","Section","Department","SSN Mail / SSN Digital Id","Gender"]
+    w=csv.writer(f)
+    w.writerow(lh)
+    w.writerows(l)
+    f.close()
 def delete(myframe):
     return
 
@@ -381,8 +478,8 @@ def login1(myframe):            # entering details of the user
         myframe.destroy()
         myframe=LabelFrame(m,bg="white")   #importing the frame colour
         myframe.grid(row=0,column=0)
-        #cal=Calendar(myframe, selectmode = 'day',
-         #      year = 2020, month = 5,
+#cal=Calendar(myframe, selectmode = 'day',
+         #              year = 2020, month = 5,
          #      day = 22)
         #cal.pack()
         column=len(l[1])
