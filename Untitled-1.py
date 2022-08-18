@@ -332,8 +332,8 @@ def login(myframe):
     #mb2=Button(myframe,text='MENTORSHIP',font=('Helvetica',16),borderwidth=0,bg="white",fg='blue',command=lambda :mentorship(myframe))
     #mb2.grid(row=1,column=3,padx=10,pady=10)
 def add(myframe,username):
-    global snoe,dide,ree,ssne,gene,dte,se,sne
-
+    global snoe,dide,ree,ssne,gene,dte,se,sne,un
+    un=username
     myframe.destroy()
     myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
     myframe.pack(padx=250,pady=250)
@@ -373,25 +373,82 @@ def add1(myframe):
     g=ssne.get()
     h=gene.get()
     details=[a,b,e,c,d,f,g,h]
-    f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","r")
-    l=[]
+    if un=='divyajohn@ssn.edu.in':
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","r")
+        l=[]
     # c=0
-    c=0
-    for i in csv.reader(f):
-        if c!=0:
+        c=0
+        for i in csv.reader(f):
+            if c!=0:
             
-            if int(i[0])<int(details[0]):
-                l.append(i)
-            elif int(i[0])==int(details[0]):
-                l.append(details)
-                i[0]=str(int(i[0])+1)
-                l.append(i)
-            else:
+                if int(i[0])<int(details[0]):
+                    l.append(i)
+                elif int(i[0])==int(details[0]):
+                    l.append(details)
+                    i[0]=str(int(i[0])+1)
+                    l.append(i)
+                else:
             # c+=1
-                i[0]=str(int(i[0])+1)
-                l.append(i)
-        c+=1
-    f.close()
+                    i[0]=str(int(i[0])+1)
+                    l.append(i)
+            c+=1
+        f.close()
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","w",newline="")
+        w=csv.writer(f)
+        w.writerow(['S.No','Digital ID','Register Number','Student Name','Section','Department','SSN Mail / SSN Digital Id','Gender'])
+        w.writerows(l)
+        f.close()
+    elif un=='chandrasekar@ssn.edu.in':
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\first20.txt","r")
+        l=[]
+    # c=0
+        c=0
+        for i in csv.reader(f):
+            if c!=0:
+            
+                if int(i[0])<int(details[0]):
+                    l.append(i)
+                elif int(i[0])==int(details[0]):
+                    l.append(details)
+                    i[0]=str(int(i[0])+1)
+                    l.append(i)
+                else:
+            # c+=1
+                    i[0]=str(int(i[0])+1)
+                    l.append(i)
+            c+=1
+        f.close()
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\first20.txt","w",newline="")
+        w=csv.writer(f)
+        w.writerow(['S.No','Digital ID','Register Number','Student Name','Section','Department','SSN Mail / SSN Digital Id','Gender'])
+        w.writerows(l)
+        f.close()
+    elif un=='rajalakshmi@ssn.edu.in':
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\second20.txt","r")
+        l=[]
+    # c=0
+        c=0
+        for i in csv.reader(f):
+            if c!=0:
+            
+                if int(i[0])<int(details[0]):
+                    l.append(i)
+                elif int(i[0])==int(details[0]):
+                    l.append(details)
+                    i[0]=str(int(i[0])+1)
+                    l.append(i)
+                else:
+            # c+=1
+                    i[0]=str(int(i[0])+1)
+                    l.append(i)
+            c+=1
+        f.close()
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\second20.txt","w",newline="")
+        w=csv.writer(f)
+        w.writerow(['S.No','Digital ID','Register Number','Student Name','Section','Department','SSN Mail / SSN Digital Id','Gender'])
+        w.writerows(l)
+        f.close()
+
     f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","w",newline="")
     w=csv.writer(f)
     w.writerow(['S.No','Digital ID','Register Number','Student Name','Section','Department','SSN Mail / SSN Digital Id','Gender'])
@@ -408,8 +465,9 @@ def add1(myframe):
     # print(details[0],type(details[0]))
     # root=mentees.insert(root,int(details[0]),details)
     
-def update(myframe):
-    global ae,be,ce
+def update(myframe,username):
+    global ae,be,ce,unam
+    unam=username
     myframe.destroy()
     myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
     myframe.pack(padx=250,pady=250)
@@ -424,50 +482,343 @@ def update(myframe):
     ce.grid(row=4,column=3)
     d=Button(myframe,text='UPDATE THE DETAILS',command=lambda :update1(myframe)).grid(row=5,column=2)
 def update1(myframe):
-    a=ae.get()
-    a=int(a)
-    b=be.get()
-    c=ce.get()
-    l=[]
-    if b.lower()=="digital id":
-        number=1
-        root=main.root3
-        tree=main.T3
-        tree.update(root,a,number,c)
-        l=tree.inorder(root)
-    if b.lower()=="register number":
-        number=2
-        root=main.root3
-        tree=main.T3
-        tree.update(root,a,number,c)
-        l=tree.inorder(root)
-    if b.lower()=="student name":
-        number=3
-        root=main.root3
-        tree=main.T3
-        tree.update(root,a,number,c)
-        l=tree.inorder(root)
-    if b.lower()=="section":
-        number=4
-        root=main.root3
-        tree=main.T3
-        tree.update(root,a,number,c)
-        l=tree.inorder(root)
-    if b.lower()=="department":
-        number=5
-        root=main.root3
-        tree=main.T3
-        tree.update(root,a,number,c)
-        l=tree.inorder(root)
-    
-    f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","w",newline="")
-    lh=["S.No","Digital ID","Register Number","Student Name","Section","Department","SSN Mail / SSN Digital Id","Gender"]
-    w=csv.writer(f)
-    w.writerow(lh)
-    w.writerows(l)
-    f.close()
-def delete(myframe):
-    return
+    x=ae.get()
+    x=int(x)
+    y=be.get()
+    z=ce.get()
+    if unam=='divyajohn@ssn.edu.in':
+        l=[]
+        if y.lower()=="digital id":
+            number=1
+            root=main.root3
+            tree=main.T3
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="register number":
+            number=2
+            root=main.root3
+            tree=main.T3
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="student name":
+            number=3
+            root=main.root3
+            tree=main.T3
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="section":
+            number=4
+            root=main.root3
+            tree=main.T3
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="department":
+            number=5
+            root=main.root3
+            tree=main.T3
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","w",newline="")
+        lh=["S.No","Digital ID","Register Number","Student Name","Section","Department","SSN Mail / SSN Digital Id","Gender"]
+        w=csv.writer(f)
+        w.writerow(lh)
+        w.writerows(l)
+        f.close()
+    elif unam=='chandrasekar@ssn.edu.in':
+        l=[]
+        if y.lower()=="digital id":
+            number=1
+            root=main.root1
+            tree=main.T1
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="register number":
+            number=2
+            root=main.root1
+            tree=main.T1
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="student name":
+            number=3
+            root=main.root1
+            tree=main.T1
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="section":
+            number=4
+            root=main.root1
+            tree=main.T1
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="department":
+            number=5
+            root=main.root1
+            tree=main.T1
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\first20.txt","w",newline="")
+        lh=["S.No","Digital ID","Register Number","Student Name","Section","Department","SSN Mail / SSN Digital Id","Gender"]
+        w=csv.writer(f)
+        w.writerow(lh)
+        w.writerows(l)
+        f.close()
+    elif unam=='rajalakshmi@ssn.edu.in':
+        l=[]
+        if y.lower()=="digital id":
+            number=1
+            root=main.root2
+            tree=main.T2
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="register number":
+            number=2
+            root=main.root2
+            tree=main.T2
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="student name":
+            number=3
+            root=main.root2
+            tree=main.T2
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="section":
+            number=4
+            root=main.root2
+            tree=main.T2
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        if y.lower()=="department":
+            number=5
+            root=main.root2
+            tree=main.T2
+            tree.update(root,x,number,z)
+            l=tree.inorder(root)
+        
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\second20.txt","w",newline="")
+        lh=["S.No","Digital ID","Register Number","Student Name","Section","Department","SSN Mail / SSN Digital Id","Gender"]
+        w=csv.writer(f)
+        w.writerow(lh)
+        w.writerows(l)
+        f.close()
+
+def delete(myframe,username):
+    global unh
+    unh=username
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.pack(padx=250,pady=250)
+    dele=Label(myframe,text='Do You Want An Entire Record To Be Deleted?').grid(row=2,column=2)
+    yese=Button(myframe,text='YES',command=lambda :yes(myframe)).grid(row=2,column=4)
+    noe=Button(myframe,text='NO',command=lambda :nono(myframe)).grid(row=2,column=6)
+def nono(myframe):
+    global xee,yee
+    xe=Label(myframe,text='Enter SNO. of the record').grid(row=4,column=2)
+    ye=Label(myframe,text='Enter type of data to be deleted').grid(row=5,column=2)
+    xee=Entry(myframe,bd=5)
+    xee.grid(row=4,column=3)
+    yee=Entry(myframe,bd=5)
+    yee.grid(row=5,column=3)
+    xc=Button(myframe,text='DELETE',command=lambda :nono1(myframe)).grid(row=7,column=2)
+def nono1(myframe):
+    xec=xee.get()
+    xec=int(xec)
+    yec=yee.get()
+    if unh=='divyajohn@ssn.edu.in':
+        l=[]
+        if yec.lower()=="digital id":
+            number=1
+            root=main.root3
+            tree=main.T3
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="register number":
+            number=2
+            root=main.root3
+            tree=main.T3
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="student name":
+            number=3
+            root=main.root3
+            tree=main.T3
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="section":
+            number=4
+            root=main.root3
+            tree=main.T3
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="department":
+            number=5
+            root=main.root3
+            tree=main.T3
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","w",newline="")
+        lh=["S.No","Digital ID","Register Number","Student Name","Section","Department","SSN Mail / SSN Digital Id","Gender"]
+        w=csv.writer(f)
+        w.writerow(lh)
+        w.writerows(l)
+        f.close()
+    elif unh=='chandrasekar@ssn.edu.in':
+        l=[]
+        if yec.lower()=="digital id":
+            number=1
+            root=main.root1
+            tree=main.T1
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="register number":
+            number=2
+            root=main.root1
+            tree=main.T1
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="student name":
+            number=3
+            root=main.root1
+            tree=main.T1
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="section":
+            number=4
+            root=main.root1
+            tree=main.T1
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="department":
+            number=5
+            root=main.root1
+            tree=main.T1
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\first20.txt","w",newline="")
+        lh=["S.No","Digital ID","Register Number","Student Name","Section","Department","SSN Mail / SSN Digital Id","Gender"]
+        w=csv.writer(f)
+        w.writerow(lh)
+        w.writerows(l)
+        f.close()
+    elif unh=='rajalakshmi@ssn.edu.in':
+        l=[]
+        if yec.lower()=="digital id":
+            number=1
+            root=main.root2
+            tree=main.T2
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="register number":
+            number=2
+            root=main.root2
+            tree=main.T2
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="student name":
+            number=3
+            root=main.root2
+            tree=main.T2
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="section":
+            number=4
+            root=main.root2
+            tree=main.T2
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        if yec.lower()=="department":
+            number=5
+            root=main.root2
+            tree=main.T2
+            tree.delete(root,xec,number)
+            l=tree.inorder(root)
+        
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\second20.txt","w",newline="")
+        lh=["S.No","Digital ID","Register Number","Student Name","Section","Department","SSN Mail / SSN Digital Id","Gender"]
+        w=csv.writer(f)
+        w.writerow(lh)
+        w.writerows(l)
+        f.close()
+
+def yes(myframe):
+    global zee
+    ze=Label(myframe,text='Enter the SNO. of the record to be deleted').grid(row=4,column=2)
+    zee=Entry(myframe,bd=5)
+    zee.grid(row=4,column=3)
+    cv=Button(myframe,text='DELETE RECORD',command=lambda :yes1(myframe)).grid(row=5,column=2)
+def yes1(myframe):
+    nb=zee.get()
+    if unh=='divyajohn@ssn.edu.in':
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","r")
+        l=[]
+    # c=0
+        c=0
+        for i in csv.reader(f):
+            if c!=0:
+            
+                if int(i[0])<int(nb):
+                    l.append(i)
+                elif int(i[0])>int(nb):
+                    i[0]=str(int(i[0])-1)
+                    l.append(i)
+                    
+                
+            c+=1
+        f.close()
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","w",newline="")
+        w=csv.writer(f)
+        w.writerow(['S.No','Digital ID','Register Number','Student Name','Section','Department','SSN Mail / SSN Digital Id','Gender'])
+        w.writerows(l)
+        f.close()
+    if unh=='rajalakshmi@ssn.edu.in':
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\second20.txt","r")
+        l=[]
+    # c=0
+        c=0
+        for i in csv.reader(f):
+            if c!=0:
+            
+                if int(i[0])<int(nb):
+                    l.append(i)
+                elif int(i[0])>int(nb):
+                    i[0]=str(int(i[0])-1)
+                    l.append(i)
+                    
+                
+            c+=1
+        f.close()
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\second20.txt","w",newline="")
+        w=csv.writer(f)
+        w.writerow(['S.No','Digital ID','Register Number','Student Name','Section','Department','SSN Mail / SSN Digital Id','Gender'])
+        w.writerows(l)
+        f.close()
+    if unh=='chandrasekar@ssn.edu.in':
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\first20.txt","r")
+        l=[]
+    # c=0
+        c=0
+        for i in csv.reader(f):
+            if c!=0:
+            
+                if int(i[0])<int(nb):
+                    l.append(i)
+                elif int(i[0])>int(nb):
+                    i[0]=str(int(i[0])-1)
+                    l.append(i)
+                    
+                
+            c+=1
+        f.close()
+        f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\first20.txt","w",newline="")
+        w=csv.writer(f)
+        w.writerow(['S.No','Digital ID','Register Number','Student Name','Section','Department','SSN Mail / SSN Digital Id','Gender'])
+        w.writerows(l)
+        f.close()
+
 
 def login1(myframe):            # entering details of the user
     user=entry1.get()
@@ -477,7 +828,7 @@ def login1(myframe):            # entering details of the user
     elif (user=='chandrasekar@ssn.edu.in' and passw=='chandru'):
         myframe.destroy()
         myframe=LabelFrame(m,bg="white")   #importing the frame colour
-        myframe.grid(row=0,column=0)
+        myframe.grid(row=0,column=0,padx=100,pady=50)
 #cal=Calendar(myframe, selectmode = 'day',
          #              year = 2020, month = 5,
          #      day = 22)
@@ -487,25 +838,35 @@ def login1(myframe):            # entering details of the user
         records=mentees.inorder(main.root1,[])
         for i in range(len(records)):
             for j in range(column):
-                e=Button(m,width=25,height=2,text=records[i][j],fg='white',bg='black',borderwidth=0)
+                e=Label(myframe,width=25,height=2,text=records[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
                 e.grid(row=0,column=0)
                 e.grid(row=i,column=j)
-    
+        f=Button(m,text='ADD',command=lambda: add(myframe,'chandrasekar@ssn.edu.in'))
+        f.place(relx=0,rely=0.1)
+        g=Button(m,text='UPDATE',command=lambda: update(myframe,'chandrasekar@ssn.edu.in'))
+        g.place(relx=0,rely=0.3)
+        h=Button(m,text='DELETE',command=lambda: delete(myframe,'chandrasekar@ssn.edu.in'))
+        h.place(relx=0,rely=0.5)
+        
         
     elif (user=='rajalakshmi@ssn.edu.in' and passw=='raji'):
         myframe.destroy()
         myframe=LabelFrame(m,bg="white")   #importing the frame colour
-        myframe.grid(row=0,column=0)
+        myframe.grid(row=0,column=0,padx=100,pady=50)
         column=len(l[1])
         mentees=main.T2
         records=mentees.inorder(main.root2,[])
         for i in range(len(records)):
             for j in range(column):
-                e=Button(m,width=25,height=2,text=records[i][j],fg='white',bg='black',borderwidth=0)
+                e=Label(myframe,width=25,height=2,text=records[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
                 e.grid(row=0,column=0)
                 e.grid(row=i,column=j)
-        f=Button(m,text='ADD',command=lambda: add(myframe))
-        f.grid(row=0,column=0)
+        f=Button(m,text='ADD',command=lambda: add(myframe,'rajalakshmi@ssn.edu.in'))
+        f.place(relx=0,rely=0.1)
+        g=Button(m,text='UPDATE',command=lambda: update(myframe,'rajalakshmi@ssn.edu.in'))
+        g.place(relx=0,rely=0.3)
+        h=Button(m,text='DELETE',command=lambda: delete(myframe,'rajalakshmi@ssn.edu.in'))
+        h.place(relx=0,rely=0.5)
         
       
     elif (user=='divyajohn@ssn.edu.in' and passw=='dj'):
@@ -517,14 +878,14 @@ def login1(myframe):            # entering details of the user
         records=mentees.inorder(main.root3,[])
         for i in range(len(records)):
             for j in range(column):
-                e=Button(myframe,width=25,height=2,text=records[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                e=Label(myframe,width=25,height=2,text=records[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
                 e.grid(row=0,column=0)
                 e.grid(row=i,column=j)
         f=Button(m,text='ADD',command=lambda: add(myframe,'divyajohn@ssn.edu.in'))
         f.place(relx=0,rely=0.1)
-        g=Button(m,text='UPDATE',command=lambda: update(myframe))
+        g=Button(m,text='UPDATE',command=lambda: update(myframe,'divyajohn@ssn.edu.in'))
         g.place(relx=0,rely=0.3)
-        h=Button(m,text='DELETE',command=lambda: delete(myframe))
+        h=Button(m,text='DELETE',command=lambda: delete(myframe,'divyajohn@ssn.edu.in'))
         h.place(relx=0,rely=0.5)
     else:
         messagebox.showinfo("","incorrect")
