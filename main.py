@@ -68,3 +68,20 @@ root=None
 for i in l4:
     root=T4.insert(root,int(i[0]),i)
 root4=root
+
+f5=open(r"C:\Users\User\Desktop\NF2\2nd sem\New folder (2)\cat1.txt","r")
+r5=csv.reader(f5)
+no=next(csv.reader(f5))
+cat1=ARRAY.Arr()
+for i in csv.reader(f5):
+    cat1.append(i)
+f5.close()
+
+#reading cat2.txt file. lines:77-83
+f6=open(r"C:\Users\User\Desktop\NF2\2nd sem\New folder (2)\cat2.txt","r")
+r6=csv.reader(f6)
+no=next(csv.reader(f6))
+cat2=ARRAY.Arr()
+for i in csv.reader(f6):
+    cat2.append(i)
+f6.close()
