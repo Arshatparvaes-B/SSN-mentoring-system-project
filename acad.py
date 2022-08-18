@@ -37,10 +37,18 @@ def evs(arr,n=8):
         marks.append([i[0],i[1],i[n]])
     return marks
 
-for i in math(cat1):
-    print(i)
-print()
-for i in evs(cat1):
+def CAT1(arr=cat1):
+    marks=ARRAY.Arr()
+    for i in arr:
+        marks.append([i[0],i[1],i[3],i[4],i[5],i[6],i[7],i[8]])
+    return marks
+
+def CAT2(arr=cat2):
+    marks=ARRAY.Arr()
+    for i in arr:
+        marks.append([i[0],i[1],i[3],i[4],i[5],i[6],i[7],i[8]])
+    return marks
+for i in CAT1():
     print(i)
 
 
