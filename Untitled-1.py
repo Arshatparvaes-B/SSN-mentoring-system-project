@@ -1,5 +1,4 @@
-from ast import Lambda
-from re import T
+from cgitb import text
 from tkinter import *       
 from tkinter import messagebox
 import math
@@ -9,6 +8,12 @@ import csv
 import avl
 import linkedlist
 import main
+import smtplib
+from tktimepicker import AnalogPicker, AnalogThemes, constants
+import os
+import acad
+from tkcalendar import Calendar
+
 #from tkcalendar import Calendar
 snoe,dide,ree,ssne,gene,dte,se,sne=None,None,None,None,None,None,None,None
 ae,be,ce=None,None,None
@@ -212,66 +217,53 @@ def personalinfo(myframe,fno):
         
     b=check(credtree,user4,passw4)'''
     
-def marks(myframe):
-    global one_mentee_details
-    global marks_tree
+def marks(myframe,sno):
+    a=clicked.get()
     myframe.destroy()
     myframe=LabelFrame(m,bg="white")   #importing the frame colour
-    myframe.place(relx=0.5,rely=0.5)
-    if a=="SELECT EXAM":
-
+    myframe.pack(padx=250,pady=250)
+    if a=="CAT-1":
     
-        f=open(r"C:\Users\ashwi\OneDrive\Documents\Ashwin M\New folder\SSN-mentoring-system-project\CAT-1results.txt","r")
-        #c=csv.reader(f)
-        no=next(csv.reader(f))
-        l=[]
-        for i in csv.reader(f):
-            l.append(i)
-        f.close()
+        marks=main.cat1[int(sno)][3:]
+        mb1=Label(myframe,text='MATHS').grid(row=2,column=2)
+        mb1m=Label(myframe,text=marks[0]).grid(row=2,column=3)
+        mb2=Label(myframe,text='BEEE').grid(row=3,column=2)
+        mb2m=Label(myframe,text=marks[1]).grid(row=3,column=3)
+        mb3=Label(myframe,text='PHYSICS').grid(row=4,column=2)
+        mb3m=Label(myframe,text=marks[2]).grid(row=4,column=3)
+        mb4=Label(myframe,text='PDS').grid(row=5,column=2)
+        mb4m=Label(myframe,text=marks[3]).grid(row=5,column=3)
+        mb5=Label(myframe,text='HSE').grid(row=6,column=2)
+        mb5m=Label(myframe,text=marks[4]).grid(row=6,column=3)
+        mb6=Label(myframe,text='EVS').grid(row=7,column=2)
+        mb6m=Label(myframe,text=marks[5]).grid(row=7,column=3)
         #print(l)
 
-        marks_tree=createBST(l)
+
 
     elif a=="CAT-2":
-        f=open(r"C:\Users\ashwi\OneDrive\Documents\Ashwin M\New folder\SSN-mentoring-system-project\CAT-2 results.txt","r")
-        c=csv.reader(f)
-        no=next(c)
-        l=[]
-        for i in c:
-            l.append(i)
-        f.close()
-
-        marks_tree=createBST(l)
+        marks=main.cat2[int(sno)][3:]
+        mb1=Label(myframe,text='MATHS').grid(row=2,column=2)
+        mb1m=Label(myframe,text=marks[0]).grid(row=2,column=3)
+        mb2=Label(myframe,text='BEEE').grid(row=3,column=2)
+        mb2m=Label(myframe,text=marks[1]).grid(row=3,column=3)
+        mb3=Label(myframe,text='PHYSICS').grid(row=4,column=2)
+        mb3m=Label(myframe,text=marks[2]).grid(row=4,column=3)
+        mb4=Label(myframe,text='PDS').grid(row=5,column=2)
+        mb4m=Label(myframe,text=marks[3]).grid(row=5,column=3)
+        mb5=Label(myframe,text='HSE').grid(row=6,column=2)
+        mb5m=Label(myframe,text=marks[4]).grid(row=6,column=3)
+        mb6=Label(myframe,text='EVS').grid(row=7,column=2)
+        mb6m=Label(myframe,text=marks[5]).grid(row=7,column=3)
     
-    elif a=="SAT":
-        f=open()  #inside the parenthesis put the filename containing SAT Marks
-        c=csv.reader(f)
-        no=next(c)
-        l=[]
-        for i in c:
-            l.append(i)
-        f.close()
 
-        marks_tree=createBST(l)
     #marks_tree.inorder()
 
-    one_mentee_details=retrievex(marks_tree,user4,1)
-
-    marks_details=one_mentee_details[3:]
-    marks_details=[("Maths",marks_details[0]),("BEEE",marks_details[1]),("Physics",marks_details[2]),("PDS",marks_details[3]),
-    ("HSE",marks_details[4]),("EVS",marks_details[5])]
-
-    total_rows=len(marks_details)
     
-    for i in range(total_rows):
-        for j in range(2):
-            e=Entry(m,width=20,fg='blue')
-            e.grid(row=i,column=j)
-            e.insert(0,marks_details[i][j])  
         
 
 def academicdetails(myframe):
-    global a
+    global clicked
     
     myframe.destroy()
     myframe=LabelFrame(m,bg="white")   #importing the frame colour
@@ -284,6 +276,7 @@ def academicdetails(myframe):
 	"SAT"]
 
 # datatype of menu text
+
     clicked = StringVar()
 
     # initial menu text
@@ -292,20 +285,20 @@ def academicdetails(myframe):
     # Create Dropdown menu
     drop = OptionMenu( myframe, clicked , *options )
     drop.pack()
-    a=clicked.get()
     #print(a)
     # Create button, it will change label text
-    button = Button( myframe, text = "SELECT",command=lambda: marks(myframe) ).pack()
+    button = Button( myframe, text = "SELECT",command=lambda: marks(myframe,d) ).pack()
 
 def mentorship(myframe):
     return
 def login(myframe):   
     global user4
-    global passw4
+    global passw4,d
     
     # entering details of the user
     user4=entry1.get()
     passw4=entry2.get()
+    
     d=logincred.give(user4,passw4,logincred.t)    
     if d=='Invalid username or password':
         messagebox.showinfo("","blank invalid")
@@ -818,6 +811,539 @@ def yes1(myframe):
         w.writerow(['S.No','Digital ID','Register Number','Student Name','Section','Department','SSN Mail / SSN Digital Id','Gender'])
         w.writerows(l)
         f.close()
+def meeting(myframe,username):
+    global xwe,unhe
+    unhe=username
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.pack(padx=250,pady=250)
+    xw=Label(myframe,text='Enter SNO. of student').grid(row=2,column=2)
+    xwe=Entry(myframe,bd=5)
+    xwe.grid(row=2,column=3)
+    xweb=Button(myframe,text='CHOOSE DATE/TIME',command=lambda :meeting1(myframe)).grid(row=4,column=2)
+def timeee():
+    # for i in range(0,len(selected_time)):
+    #     a=str(selected_time[i])
+    #     if i==1:
+    #         print(":",end=" ")
+    #         print(a,end=" ")
+    #     else:
+    #         print(a,end=" ") 
+    a=str(selected_time[0])+":"+str(selected_time[1])+str(selected_time[2])
+    return a
+def scheduler(myframe):
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.pack(padx=250,pady=250)
+    #ADD 
+    
+        # theme.setDracula()
+        #print(time_picker)
+        # Create Object
+        # Set geometry
+    # Add Calendar
+    cal = Calendar(myframe, selectmode = 'day',
+                year = 2022, month = 8,
+                day = 18)
+    cal.pack(pady = 20)
+    def grad_date():
+        global meeting_date
+        meeting_date=str(cal.get_date())
+        if unhe=='divyajohn@ssn.edu.in':
+            f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\third20.txt","r")
+            l=[]
+            c=0
+            for i in csv.reader(f):
+                if c!=0:
+                    l.append(i)
+                c+=1
+            f.close()
+            for SNo,DigitalID,RegisterNumber,StudentName,Section,Department,SSNMailSSNDigitalId,Gender in l:
+                if str(SNo)==str(xdvjo):
+                    EMAIL_ADDRESS = 'ssnmentorshipprojectmailsender@gmail.com'
+                    EMAIL_PASS='muanlosmmbtztfzi'
+                    with smtplib.SMTP('smtp.gmail.com',587) as smtp:
+                        #identifies ourselves with thee mail server
+                        #to encrypt traffic
+                        
+#login now but remember it's always safe to encrypt the login info within "ENVIRONMENT VARIABLES"
+                        smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
+                        subject = 'Meeting Request'
+                        body = f"Hi your mentor wants a meeting to be scheduled with you at\nTIME: {timeee()}\nDATE:{str(meeting_date)}\nKindly join the meeting at the mentioned date and time." 
+                        msg =f'Subject:{subject}\n\n{body}'
+                        smtp.sendmail(EMAIL_ADDRESS,SSNMailSSNDigitalId,msg)
+        elif unhe=='chandrasekar@ssn.edu.in':
+            f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\first20.txt","r")
+            l=[]
+            c=0
+            for i in csv.reader(f):
+                if c!=0:
+                    l.append(i)
+                c+=1
+            f.close()
+            
+            for SNo,DigitalID,RegisterNumber,StudentName,Section,Department,SSNMailSSNDigitalId,Gender in l:
+                if str(SNo)==str(xdvjo):
+                
+                    EMAIL_ADDRESS = 'ssnmentorshipprojectmailsender@gmail.com'
+                    EMAIL_PASS='muanlosmmbtztfzi'
+                    
+                    with smtplib.SMTP('smtp.gmail.com',587) as smtp:
+                        smtp.ehlo()#identifies ourselves with thee mail server
+                        smtp.starttls()#to encrypt traffic
+                        smtp.ehlo()#identifies ourselves with thee mail server
+                        #to encrypt traffic
+#login now but remember it's always safe to encrypt the login info within "ENVIRONMENT VARIABLES"
+                        smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
+                        subject = 'Meeting Request'
+                        body = f"Hi your mentor wants a meeting to be scheduled with you at\nTIME: {timeee()}\nDATE:{str(meeting_date)}\nKindly join the meeting at the mentioned date and time." 
+                        msg =f'Subject:{subject}\n\n{body}'
+    
+                        smtp.sendmail(EMAIL_ADDRESS,SSNMailSSNDigitalId,msg)
+
+                
+        elif unhe=='rajalakshmi@ssn.edu.in':
+            f=open(r"C:\Users\ashwi\OneDrive\Desktop\SSN-mentoring-system-project-1\second20.txt","r")
+            l=[]
+            c=0
+            for i in csv.reader(f):
+                if c!=0:
+                    l.append(i)
+                c+=1
+            f.close()
+            for SNo,DigitalID,RegisterNumber,StudentName,Section,Department,SSNMailSSNDigitalId,Gender in l:
+                if str(SNo)==str(xdvjo):
+                    EMAIL_ADDRESS = 'ssnmentorshipprojectmailsender@gmail.com'
+                    EMAIL_PASS='muanlosmmbtztfzi'
+                    with smtplib.SMTP('smtp.gmail.com',587) as smtp:
+                        smtp.ehlo()#identifies ourselves with thee mail server
+                        smtp.starttls()#to encrypt traffic
+                        smtp.ehlo()
+#login now but remember it's always safe to encrypt the login info within "ENVIRONMENT VARIABLES"
+                        smtp.login(EMAIL_ADDRESS,EMAIL_PASS)
+                        subject = 'Meeting Request'
+                        body = f"Hi your mentor wants a meeting to be scheduled with you at\nTIME: {timeee()}\nDATE:{str(meeting_date)}\nKindly join the meeting at the mentioned date and time." 
+                        msg =f'Subject:{subject}\n\n{body}'
+    
+                        smtp.sendmail(EMAIL_ADDRESS,SSNMailSSNDigitalId,msg)
+
+    # Add Button and Label
+    Button(myframe, text = "SEND MAIL",
+        command = grad_date).pack(pady = 10)
+    
+
+def meeting1(myframe):
+    global xdvjo
+    xdvjo=xwe.get()
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.pack(padx=100,pady=100)
+    
+    def updateTime(time):
+        global selected_time
+        time_lbl.configure(text="{}:{} {}".format(*time)) # remove 3rd flower bracket in case of 24 hrs time
+        selected_time=list(time)
+        myb=Button(myframe,text='Select Date',command=lambda :scheduler(myframe)).pack(padx=20,pady=20)
+        
+    def get_time():
+    
+        time_picker = AnalogPicker(myframe, type=constants.HOURS12)
+        time_picker.pack(expand=True,fill='both')
+        theme = AnalogThemes(time_picker)
+    # theme.setDracula()
+    # theme.setNavyBlue()
+        theme.setNavyBlue()
+        ok_btn = Button(myframe, text="OK", command=lambda: updateTime(time_picker.time()),height=2,width=7)
+        ok_btn.pack(padx=20,pady=20)
+
+    
+    time = ()
+    time_lbl = Label(myframe, text="Time:")
+    time_lbl.pack()
+    time_btn = Button(myframe, text="Select Time Of The Meeting", command=get_time)
+    time_btn.pack()
+def mu(myframe):
+    global clicked1
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.pack(padx=100,pady=100)
+    options = ["MATHS","BEEE",'PHYSICS','PDS','HSE','EVS']
+    clicked1 = StringVar()
+    clicked1.set("SELECT SUBJECT")
+    drop = OptionMenu( myframe, clicked1 , *options )
+    drop.pack()
+    button = Button( myframe, text = "SELECT",command=lambda: mule(myframe) ).pack()
+    
+def mule(myframe):
+    a=clicked.get()
+    b=clicked1.get()
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.place(relx=0.2,rely=0.1)
+    if unhef=='chandrasekar@ssn.edu.in':
+        if a=='CAT-1':
+            if b=='BEEE':
+
+                vf=acad.BEEE(main.cat1)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='MATHS':
+                vf=acad.MATHS(main.cat1)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PHYSICS':
+                vf=acad.PHY(main.cat1)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PDS':
+                vf=acad.PDS(main.cat1)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='HSE':
+                vf=acad.HSE(main.cat1)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='EVS':
+                vf=acad.EVS(main.cat1)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+        elif a=='CAT-2':
+            if b=='BEEE':
+
+                vf=acad.BEEE(main.cat2)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='MATHS':
+                vf=acad.MATHS(main.cat2)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PHYSICS':
+                vf=acad.PHY(main.cat2)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PDS':
+                vf=acad.PDS(main.cat2)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='HSE':
+                vf=acad.HSE(main.cat2)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='EVS':
+                vf=acad.EVS(main.cat2)
+                
+                for i in range(21):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+    elif unhef=='rajalakshmi@ssn.edu.in':
+        if a=='CAT-1':
+            if b=='BEEE':
+
+                vf=acad.BEEE(main.cat1)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='MATHS':
+                vf=acad.MATHS(main.cat1)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PHYSICS':
+                vf=acad.PHY(main.cat1)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PDS':
+                vf=acad.PDS(main.cat1)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='HSE':
+                vf=acad.HSE(main.cat1)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='EVS':
+                vf=acad.EVS(main.cat1)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+        elif a=='CAT-2':
+            if b=='BEEE':
+
+                vf=acad.BEEE(main.cat2)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='MATHS':
+                vf=acad.MATHS(main.cat2)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PHYSICS':
+                vf=acad.PHY(main.cat2)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PDS':
+                vf=acad.PDS(main.cat2)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='HSE':
+                vf=acad.HSE(main.cat2)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='EVS':
+                vf=acad.EVS(main.cat2)
+                
+                for i in range(21,42):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+    elif unhef=='divyajohn@ssn.edu.in':
+        if a=='CAT-1':
+            if b=='BEEE':
+
+                vf=acad.BEEE(main.cat1)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='MATHS':
+                vf=acad.MATHS(main.cat1)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PHYSICS':
+                vf=acad.PHY(main.cat1)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PDS':
+                vf=acad.PDS(main.cat1)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='HSE':
+                vf=acad.HSE(main.cat1)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='EVS':
+                vf=acad.EVS(main.cat1)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+        elif a=='CAT-2':
+            if b=='BEEE':
+
+                vf=acad.BEEE(main.cat2)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='MATHS':
+                vf=acad.MATHS(main.cat2)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PHYSICS':
+                vf=acad.PHY(main.cat2)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='PDS':
+                vf=acad.PDS(main.cat2)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='HSE':
+                vf=acad.HSE(main.cat2)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)
+            elif b=='EVS':
+                vf=acad.EVS(main.cat2)
+                
+                for i in range(42,63):
+                    
+                    for j in range(3):
+                        e=Label(myframe,width=25,height=2,text=vf[i][j],fg='white',bg='#A2ACBE',borderwidth=0)
+                        e.grid(row=0,column=0)
+                        e.grid(row=i,column=j)       
+
+
+def cat1cat2(myframe,username):
+    global clicked,unhef
+    unhef=username
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.pack(padx=100,pady=100)
+    options = [
+	    "CAT-1",
+	    "CAT-2",]
+
+# datatype of menu text
+
+    clicked = StringVar()
+
+    # initial menu text
+    clicked.set("SELECT EXAM")
+
+    # Create Dropdown menu
+    drop = OptionMenu( myframe, clicked , *options )
+    drop.pack()
+    #print(a)
+    # Create button, it will change label text
+    button = Button( myframe, text = "SELECT",command=lambda: mu(myframe) ).pack()
 
 
 def login1(myframe):            # entering details of the user
@@ -842,11 +1368,17 @@ def login1(myframe):            # entering details of the user
                 e.grid(row=0,column=0)
                 e.grid(row=i,column=j)
         f=Button(m,text='ADD',command=lambda: add(myframe,'chandrasekar@ssn.edu.in'))
-        f.place(relx=0,rely=0.1)
+        f.place(relx=0,rely=0)
         g=Button(m,text='UPDATE',command=lambda: update(myframe,'chandrasekar@ssn.edu.in'))
-        g.place(relx=0,rely=0.3)
+        g.place(relx=0,rely=0.05)
         h=Button(m,text='DELETE',command=lambda: delete(myframe,'chandrasekar@ssn.edu.in'))
-        h.place(relx=0,rely=0.5)
+        h.place(relx=0,rely=0.1)
+        i=Button(m,text='MEETING WITH MENTEE',command=lambda :meeting(myframe,'chandrasekar@ssn.edu.in'))
+        i.place(relx=0,rely=0.15)
+        j=Button(m,text='ACADEMIC INFO.',command=lambda :cat1cat2(myframe,'chandrasekar@ssn.edu.in'))
+        j.place(relx=0,rely=0.2)
+        
+
         
         
     elif (user=='rajalakshmi@ssn.edu.in' and passw=='raji'):
@@ -867,6 +1399,10 @@ def login1(myframe):            # entering details of the user
         g.place(relx=0,rely=0.3)
         h=Button(m,text='DELETE',command=lambda: delete(myframe,'rajalakshmi@ssn.edu.in'))
         h.place(relx=0,rely=0.5)
+        i=Button(m,text='MEETING WITH MENTEE',command=lambda :meeting(myframe,'rajalakshmi@ssn.edu.in'))
+        i.place(relx=0,rely=0.7)
+        j=Button(m,text='ACADEMIC INFO.',command=lambda :cat1cat2(myframe,'rajalakshmi@ssn.edu.in'))
+        j.place(relx=0,rely=0.2)
         
       
     elif (user=='divyajohn@ssn.edu.in' and passw=='dj'):
@@ -884,9 +1420,13 @@ def login1(myframe):            # entering details of the user
         f=Button(m,text='ADD',command=lambda: add(myframe,'divyajohn@ssn.edu.in'))
         f.place(relx=0,rely=0.1)
         g=Button(m,text='UPDATE',command=lambda: update(myframe,'divyajohn@ssn.edu.in'))
-        g.place(relx=0,rely=0.3)
+        g.place(relx=0,rely=0.2)
         h=Button(m,text='DELETE',command=lambda: delete(myframe,'divyajohn@ssn.edu.in'))
-        h.place(relx=0,rely=0.5)
+        h.place(relx=0,rely=0.3)
+        i=Button(m,text='MEETING WITH MENTEE',command=lambda :meeting(myframe,'divyajohn@ssn.edu.in'))
+        i.place(relx=0,rely=0.4)
+        j=Button(m,text='ACADEMIC INFO.',command=lambda :cat1cat2(myframe,'divyajohn@ssn.edu.in'))
+        j.place(relx=0,rely=0.2)
     else:
         messagebox.showinfo("","incorrect")
 def raja(myframe):
@@ -894,9 +1434,9 @@ def raja(myframe):
     myframe=LabelFrame(m,bg="white")   #importing the frame colour
     myframe.grid(row=0,column=0)
     column=len(l[1])
-    for i in range(0,21):
+    for i in range(21,42):
         for j in range(column):
-            e=Entry(m,width=20,fg='blue')
+            e=Label(m,width=20,fg='blue')
             e.grid(row=i,column=j)
             e.insert(0,l[i][j])
 def chandra(myframe):
@@ -904,7 +1444,7 @@ def chandra(myframe):
     myframe=LabelFrame(m,bg="white")   #importing the frame colour
     myframe.grid(row=0,column=0)
     column=len(l[1])
-    for i in range(21,42):
+    for i in range(21):
         for j in range(column):
             e=Entry(m,width=20,fg='blue')
             e.grid(row=i,column=j)
@@ -920,7 +1460,45 @@ def dj(myframe):
             e=Entry(m,width=20,fg='blue')
             e.grid(row=i,column=j)
             e.insert(0,l[i][j])
+def muke(myframe):
+    a=clicked2.get() #cat1 or cat2
+    b=clicked3.get() #subjects
     
+def muk(myframe):
+    global clicked3
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.pack(padx=100,pady=100)
+    options = ["MATHS","BEEE",'PHYSICS','PDS','HSE','EVS']
+    clicked3 = StringVar()
+    clicked3.set("SELECT SUBJECT")
+    drop = OptionMenu( myframe, clicked3 , *options )
+    drop.pack()
+    button = Button( myframe, text = "SELECT",command=lambda: muke(myframe) ).pack()
+
+def acadrep(myframe):
+    global clicked2
+    myframe.destroy()
+    myframe=LabelFrame(m,bg="#A2ACBE",bd=0)   #importing the frame colour
+    myframe.pack(padx=100,pady=100)
+    options = [
+	    "CAT-1",
+	    "CAT-2",]
+
+# datatype of menu text
+
+    clicked2= StringVar()
+
+    # initial menu text
+    clicked2.set("SELECT EXAM")
+
+    # Create Dropdown menu
+    drop = OptionMenu( myframe, clicked2 , *options )
+    drop.pack()
+    #print(a)
+    # Create button, it will change label text
+    button = Button( myframe, text = "SELECT",command=lambda: muk(myframe) ).pack()
+
 def login2(myframe):
     
     user2=entry1.get()
@@ -936,7 +1514,7 @@ def login2(myframe):
         myframe=LabelFrame(m,bg="white")   #importing the frame colour
         myframe.grid(row=0,column=0)
         
-        b1=Button(myframe,text='ACADEMIC REPORT',width=0)
+        b1=Button(myframe,text='ACADEMIC REPORT',width=0,command=lambda :acadrep(myframe))
         
         b1.grid(row=0,column=1,padx=10,pady=10)
         b2=Button(myframe,text='Chandrasekar',width=0,command=lambda:chandra(myframe))
